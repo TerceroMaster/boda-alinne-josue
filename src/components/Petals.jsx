@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Petals = () => {
   const [petals, setPetals] = useState([]);
@@ -45,7 +45,7 @@ const Petals = () => {
             transform: `rotate(${petal.rotate}deg)`
           }}
         >
-          ðŸŒ»
+          🌻
         </div>
       ))}
       <style>{`

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { X, CalendarPlus, Loader2 } from 'lucide-react';
 
@@ -104,11 +104,11 @@ const EventModal = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>DescripciÃ³n (opcional)</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Descripción (opcional)</label>
             <textarea 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Un pequeÃ±o detalle del evento..."
+              placeholder="Un pequeño detalle del evento..."
               rows={2}
               style={{
                 width: '100%', padding: '0.75rem', borderRadius: '8px',

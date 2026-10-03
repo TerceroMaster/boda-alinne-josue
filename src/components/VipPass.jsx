@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import html2canvas from 'html2canvas';
 import { Download, CheckCircle, Ticket } from 'lucide-react';
@@ -32,7 +32,7 @@ const VipPass = ({ guestName, event, guestId }) => {
       link.click();
     } catch (error) {
       console.error('Error al generar la imagen:', error);
-      alert('Hubo un error al descargar tu pase. IntÃ©ntalo de nuevo.');
+      alert('Hubo un error al descargar tu pase. Inténtalo de nuevo.');
     } finally {
       setDownloading(false);
     }
@@ -43,9 +43,9 @@ const VipPass = ({ guestName, event, guestId }) => {
       
       <div style={{ textAlign: 'center' }}>
         <CheckCircle size={48} color="#10b981" style={{ margin: '0 auto 1rem' }} />
-        <h2 style={{ color: 'var(--text-main)', fontSize: '2rem', marginBottom: '0.5rem' }}>Â¡Lugar Reservado!</h2>
+        <h2 style={{ color: 'var(--text-main)', fontSize: '2rem', marginBottom: '0.5rem' }}>¡Lugar Reservado!</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
-          Te esperamos con mucha emociÃ³n.<br/>
+          Te esperamos con mucha emoción.<br/>
           <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', display: 'block', marginTop: '0.5rem' }}>- Jessica Ivette</span>
         </p>
       </div>

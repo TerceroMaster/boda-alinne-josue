@@ -1,11 +1,11 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { Send, MessageSquareHeart } from 'lucide-react';
 
 const badWords = [
-  'puta', 'puto', 'mierda', 'pendejo', 'pendeja', 'cabron', 'cabrÃ³n', 'chinga', 'chingada',
-  'verga', 'pito', 'panocha', 'culo', 'culero', 'idiota', 'estupido', 'estÃºpido', 'imbecil',
-  'imbÃ©cil', 'zorra', 'perra', 'maldito', 'maldita', 'jodete', 'jÃ³dete', 'coÃ±o', 'maricon', 'maricÃ³n',
+  'puta', 'puto', 'mierda', 'pendejo', 'pendeja', 'cabron', 'cabrón', 'chinga', 'chingada',
+  'verga', 'pito', 'panocha', 'culo', 'culero', 'idiota', 'estupido', 'estúpido', 'imbecil',
+  'imbécil', 'zorra', 'perra', 'maldito', 'maldita', 'jodete', 'jódete', 'coño', 'maricon', 'maricón',
   'sexo', 'porno', 'putas', 'putos', 'pendejos'
 ];
 
@@ -64,7 +64,7 @@ const Guestbook = () => {
 
       if (error) {
         console.error('Error adding dedication:', error);
-        alert('Hubo un error al guardar tu dedicatoria. IntÃ©ntalo de nuevo.');
+        alert('Hubo un error al guardar tu dedicatoria. Inténtalo de nuevo.');
       } else {
         setNewAuthor('');
         setNewMessage('');
@@ -84,7 +84,7 @@ const Guestbook = () => {
           <MessageSquareHeart size={28} color="var(--accent-color)" />
           Muro de Dedicatorias
         </h2>
-        <p style={{ color: 'var(--text-muted)' }}>Deja unas hermosas palabras para Josuï¿½ y Mï¿½nica</p>
+        <p style={{ color: 'var(--text-muted)' }}>Deja unas hermosas palabras para Josué y Mónica</p>
       </div>
 
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -105,7 +105,7 @@ const Guestbook = () => {
             required
           />
           <textarea
-            placeholder="Escribe tu dedicatoria aquÃ­..."
+            placeholder="Escribe tu dedicatoria aquí..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             rows={3}
@@ -154,7 +154,7 @@ const Guestbook = () => {
       </div>
       {dedications.length === 0 && (
         <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontStyle: 'italic' }}>
-          AÃºn no hay dedicatorias. Â¡SÃ© el primero en dejar un lindo mensaje!
+          Aún no hay dedicatorias. ¡Sé el primero en dejar un lindo mensaje!
         </p>
       )}
     </div>

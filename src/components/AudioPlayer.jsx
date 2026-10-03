@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Music, Pause } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 
@@ -86,7 +86,7 @@ const AudioPlayer = () => {
         {isPlaying ? <Pause size={16} /> : <Music size={16} />}
       </button>
       <span style={{ fontSize: '0.875rem', fontWeight: 600, opacity: 0.8 }}>
-        {isPlaying ? 'MÃºsica ClÃ¡sica' : 'MÃºsica'}
+        {isPlaying ? 'Música Clásica' : 'Música'}
       </span>
     </div>
   );

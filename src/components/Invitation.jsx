@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { CheckCircle2, XCircle, Loader2, Heart, Calendar, MapPin } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
@@ -42,7 +42,7 @@ const Invitation = ({ eventId }) => {
       return;
     }
     if (!gender && status === 'attending') {
-      alert('Por favor selecciona tu gÃ©nero.');
+      alert('Por favor selecciona tu género.');
       return;
     }
 
@@ -72,7 +72,7 @@ const Invitation = ({ eventId }) => {
       }
     } catch (error) {
       console.error('Error submitting RSVP:', error);
-      alert('OcurriÃ³ un error al enviar tu respuesta. Por favor intenta de nuevo.');
+      alert('Ocurrió un error al enviar tu respuesta. Por favor intenta de nuevo.');
     } finally {
       setSubmitting(false);
     }
@@ -91,7 +91,7 @@ const Invitation = ({ eventId }) => {
       <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '2rem' }}>
         <div>
           <h2>Evento no encontrado</h2>
-          <p>El enlace de invitaciÃ³n parece ser invÃ¡lido o el evento fue eliminado.</p>
+          <p>El enlace de invitación parece ser inválido o el evento fue eliminado.</p>
         </div>
       </div>
     );
@@ -106,8 +106,8 @@ const Invitation = ({ eventId }) => {
           ) : (
             <>
               <Heart size={64} color="var(--danger)" style={{ margin: '0 auto 1rem' }} />
-              <h2 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>Â¡Te extraÃ±aremos! ðŸ˜”</h2>
-              <p style={{ color: 'var(--text-muted)' }}>Entendemos que no puedas asistir. PodrÃ¡s ver todas las fotos y videos del evento en esta misma pÃ¡gina despuÃ©s de la fiesta.</p>
+              <h2 style={{ color: 'var(--text-main)', marginBottom: '1rem' }}>¡Te extrañaremos! 😔</h2>
+              <p style={{ color: 'var(--text-muted)' }}>Entendemos que no puedas asistir. Podrás ver todas las fotos y videos del evento en esta misma página después de la fiesta.</p>
             </>
           )}
         </div>
@@ -122,7 +122,7 @@ const Invitation = ({ eventId }) => {
         
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-hover)', textTransform: 'uppercase', fontWeight: 'bold', fontSize: '0.875rem', marginBottom: '1.5rem', letterSpacing: '0.1em' }}>
           <Heart size={16} fill="currentColor" />
-          ESTÃS INVITADO(A)
+          ESTÁS INVITADO(A)
         </div>
 
         <h1 style={{ fontSize: '3rem', margin: '0 0 1rem 0', color: 'var(--text-main)' }}>
@@ -208,7 +208,7 @@ const Invitation = ({ eventId }) => {
               className="btn-primary"
               style={{ flex: 1, padding: '1rem', background: '#10b981', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.4)' }}
             >
-              {submitting ? <Loader2 size={20} className="animate-spin mx-auto" /> : 'SÃ­, asistirÃ©'}
+              {submitting ? <Loader2 size={20} className="animate-spin mx-auto" /> : 'Sí, asistiré'}
             </button>
             <button 
               onClick={() => handleRSVP('declined')}
@@ -216,7 +216,7 @@ const Invitation = ({ eventId }) => {
               className="btn-secondary"
               style={{ flex: 1, padding: '1rem' }}
             >
-              {submitting ? <Loader2 size={20} className="animate-spin mx-auto" /> : 'No podrÃ©'}
+              {submitting ? <Loader2 size={20} className="animate-spin mx-auto" /> : 'No podré'}
             </button>
           </div>
         </div>

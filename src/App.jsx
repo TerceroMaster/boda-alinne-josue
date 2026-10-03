@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Timeline from './components/Timeline';
 import UploadModal from './components/UploadModal';
 import EventModal from './components/EventModal';
@@ -46,7 +46,7 @@ function App() {
     if (pin === '1357') {
       setIsEventModalOpen(true);
     } else if (pin !== null) {
-      alert('PIN incorrecto. OperaciÃ³n cancelada.');
+      alert('PIN incorrecto. Operación cancelada.');
     }
   };
 
@@ -55,7 +55,7 @@ function App() {
     if (pin === '1357') {
       setIsUploadModalOpen(true);
     } else if (pin !== null) {
-      alert('PIN incorrecto. OperaciÃ³n cancelada.');
+      alert('PIN incorrecto. Operación cancelada.');
     }
   };
 
@@ -126,11 +126,11 @@ function App() {
                 boxShadow: 'var(--shadow-sm)'
               }}>
                 <Heart size={16} fill="currentColor" style={{ marginRight: '0.5rem' }} />
-                JosuÃ© & MÃ³nica ðŸ
+                Josué & Mónica 🍍
               </div>
               
               <h1 className="header-title animate-fade-in delay-200" style={{ marginTop: 0, marginBottom: '0.5rem', fontSize: '3.5rem' }}>
-                ðŸŒ» Nuestra Boda ðŸŒ»
+                🌻 Nuestra Boda 🌻
               </h1>
 
               <p className="animate-fade-in delay-200" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-main)', marginBottom: '1rem', textShadow: '0 2px 4px rgba(255,255,255,0.8)' }}>
@@ -149,7 +149,7 @@ function App() {
                 fontWeight: '600',
                 textShadow: '0 2px 4px rgba(255,255,255,0.9)'
               }}>
-                AcompÃ¡Ã±anos a atesorar cada sonrisa, cada paso y cada hermoso recuerdo en esta maravillosa aventura.
+                Acompáñanos a atesorar cada sonrisa, cada paso y cada hermoso recuerdo en esta maravillosa aventura.
               </p>
 
               <div className="animate-fade-in delay-300" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
