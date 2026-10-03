@@ -92,7 +92,7 @@ const ProfilePicture = ({ isAdmin }) => {
       }}>
         <img 
           src={imageUrl} 
-          alt="Alinne y Josue"
+          alt="Josué y Mónica"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         
@@ -174,7 +174,7 @@ const ProfilePicture = ({ isAdmin }) => {
           </button>
           <img 
             src={imageUrl} 
-            alt="Alinne y Josue Full" 
+            alt="Josué y Mónica Full" 
             style={{ maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 0 40px rgba(0,0,0,0.5)' }} 
             onClick={(e) => e.stopPropagation()}
           />
