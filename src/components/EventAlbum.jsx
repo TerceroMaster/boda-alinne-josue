@@ -16,16 +16,17 @@ const EventAlbum = ({ event, onBack }) => {
         const { data, error } = await supabase
           .from('wedding_media')
           .select('*')
-          .not('id', 'is', null)
+          .eq('event_id', event.id)
           .order('created_at', { ascending: false });
 
         if (error) throw error;
         
-        // Filtrar foto de perfil y asegurar que solo sean imágenes
         const visiblePosts = data.filter(p => 
+          p.title !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
+          p.title !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
           p.guest_name !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
           p.guest_name !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
-          p.media_type === 'image'
+          (p.media_type === 'image' || p.media_type === 'video')
         );
         setPosts(visiblePosts);
       } catch (error) {
@@ -38,13 +39,14 @@ const EventAlbum = ({ event, onBack }) => {
     fetchPosts();
 
     const channel = supabase
-      .channel(`public:posts:event=${event.id}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'posts', filter: `event_id=eq.${event.id}` }, payload => {
+      .channel('public:wedding_media:event=' + event.id)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'wedding_media', filter: 'event_id=eq.' + event.id }, payload => {
         if (payload.eventType === 'INSERT') {
           if (
             payload.new.title !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
             payload.new.title !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
-            payload.new.media_type === 'image'
+            payload.new.guest_name !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
+            (payload.new.media_type === 'image' || payload.new.media_type === 'video')
           ) {
             setPosts(current => [payload.new, ...current]);
           }
@@ -94,7 +96,7 @@ const EventAlbum = ({ event, onBack }) => {
         <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
           <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Álbum Vacío</h3>
           <p>Aún no hay fotos en este evento. ¡Agrega el primer recuerdo!</p>
-          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la Galería 3D)</p>
+          <p style={{ fontSize: '0.875rem' }}></p>
         </div>
       ) : (
         <div style={{ 
@@ -112,12 +114,21 @@ const EventAlbum = ({ event, onBack }) => {
               onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
               <div style={{ width: '100%', height: '280px', backgroundColor: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img 
-                  src={`${post.media_url}?t=${Date.now()}`} 
-                  alt={post.title} 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  
-                />
+                {post.media_type === 'video' ? (
+                  <video 
+                    src={`${post.media_url}#t=0.1`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    preload="metadata"
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img 
+                    src={`${post.media_url}?t=${Date.now()}`} 
+                    alt={post.title} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                )}
               </div>
               <div style={{ padding: '1rem', position: 'relative' }}>
                 <h4 style={{ margin: 0, fontSize: '1.1rem', color: 'var(--text-main)' }}>{post.title}</h4>
