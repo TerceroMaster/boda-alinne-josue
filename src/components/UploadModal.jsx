@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { X, UploadCloud, Loader2, Info } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const UploadModal = ({ isOpen, onClose }) => {
   const fetchEvents = async () => {
     try {
       const { data, error } = await supabase
-        .from('events_mtfd')
+        .from('wedding_events')
         .select('id, name')
         .order('created_at', { ascending: false });
 
@@ -43,7 +43,7 @@ const UploadModal = ({ isOpen, onClose }) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
       if (selectedFile.size > 50 * 1024 * 1024) {
-        setError('El archivo es demasiado grande. Máximo 50MB.');
+        setError('El archivo es demasiado grande. MÃ¡ximo 50MB.');
         return;
       }
       setFile(selectedFile);
@@ -54,7 +54,7 @@ const UploadModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file || !title || !eventId) {
-      setError('Por favor, ingresa un título, selecciona un archivo y un evento.');
+      setError('Por favor, ingresa un tÃ­tulo, selecciona un archivo y un evento.');
       return;
     }
 
@@ -142,15 +142,15 @@ const UploadModal = ({ isOpen, onClose }) => {
             onClick={() => setShowLimitsInfo(!showLimitsInfo)}
             style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: 'var(--accent-hover)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
           >
-            <Info size={18} /> Límites
+            <Info size={18} /> LÃ­mites
           </button>
         </div>
 
         {showLimitsInfo && (
           <div className="animate-fade-in" style={{ padding: '1rem', backgroundColor: 'var(--accent-light)', color: 'var(--text-main)', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.875rem', border: '1px solid var(--accent-color)' }}>
-            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent-hover)' }}>⚠️ Información Importante</h4>
+            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent-hover)' }}>âš ï¸ InformaciÃ³n Importante</h4>
             <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
-              <li><strong>Tamaño máximo:</strong> 50 MB por archivo.</li>
+              <li><strong>TamaÃ±o mÃ¡ximo:</strong> 50 MB por archivo.</li>
               <li><strong>Fotos:</strong> Tienes capacidad aproximada para unas ~300 a 400 fotos en total.</li>
               <li><strong>Videos:</strong> Sube videos cortos (15 a 30 segundos grabados en el celular normal) para asegurarte de que pesen menos de 50 MB.</li>
             </ul>
@@ -191,7 +191,7 @@ const UploadModal = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Título de la foto/video</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>TÃ­tulo de la foto/video</label>
             <input 
               type="text" 
               value={title}
@@ -207,7 +207,7 @@ const UploadModal = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Descripción (opcional)</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>DescripciÃ³n (opcional)</label>
             <textarea 
               value={description}
               onChange={(e) => setDescription(e.target.value)}

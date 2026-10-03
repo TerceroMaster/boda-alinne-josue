@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { ArrowLeft, CalendarHeart, X } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
@@ -21,7 +21,7 @@ const EventAlbum = ({ event, onBack }) => {
 
         if (error) throw error;
         
-        // Filtrar foto de perfil y asegurar que solo sean imágenes
+        // Filtrar foto de perfil y asegurar que solo sean imÃ¡genes
         const visiblePosts = data.filter(p => 
           p.guest_name !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
           p.guest_name !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
@@ -66,7 +66,7 @@ const EventAlbum = ({ event, onBack }) => {
 
   return (
     <div className="container animate-fade-in" style={{ paddingBottom: '4rem' }}>
-      {/* Header del Álbum */}
+      {/* Header del Ãlbum */}
       <div style={{ marginBottom: '3rem', textAlign: 'center', position: 'relative' }}>
         <button 
           onClick={onBack}
@@ -80,7 +80,7 @@ const EventAlbum = ({ event, onBack }) => {
         </h2>
         <div style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>
           {format(parseISO(event.created_at), "MMMM yyyy", { locale: es })}
-          {event.description && ` • ${event.description}`}
+          {event.description && ` â€¢ ${event.description}`}
         </div>
       </div>
 
@@ -92,9 +92,9 @@ const EventAlbum = ({ event, onBack }) => {
         </div>
       ) : posts.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Álbum Vacío</h3>
-          <p>Aún no hay fotos en este evento. ¡Agrega el primer recuerdo!</p>
-          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la Galería 3D)</p>
+          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Ãlbum VacÃ­o</h3>
+          <p>AÃºn no hay fotos en este evento. Â¡Agrega el primer recuerdo!</p>
+          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la GalerÃ­a 3D)</p>
         </div>
       ) : (
         <div style={{ 

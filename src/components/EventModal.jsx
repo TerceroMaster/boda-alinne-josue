@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { X, CalendarPlus, Loader2 } from 'lucide-react';
 
@@ -29,7 +29,7 @@ const EventModal = ({ isOpen, onClose }) => {
       }
 
       const { error: dbError } = await supabase
-        .from('events_mtfd')
+        .from('wedding_events')
         .insert([payload]);
 
       if (dbError) throw dbError;
@@ -104,11 +104,11 @@ const EventModal = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>Descripción (opcional)</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>DescripciÃ³n (opcional)</label>
             <textarea 
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Un pequeño detalle del evento..."
+              placeholder="Un pequeÃ±o detalle del evento..."
               rows={2}
               style={{
                 width: '100%', padding: '0.75rem', borderRadius: '8px',

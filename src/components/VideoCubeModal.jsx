@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { X, Play, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -177,7 +177,7 @@ const VideoCubeModal = ({ event, onClose }) => {
       {/* Header */}
       <div style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div>
-          <h2 style={{ color: 'white', margin: 0 }}>Galería 3D de Videos</h2>
+          <h2 style={{ color: 'white', margin: 0 }}>GalerÃ­a 3D de Videos</h2>
           <p style={{ color: '#aaa', margin: '0.25rem 0 0 0', fontSize: '0.875rem' }}>{event.name}</p>
         </div>
         <button onClick={onClose} style={{ color: 'white', background: 'rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '50%' }}>
@@ -225,7 +225,7 @@ const VideoCubeModal = ({ event, onClose }) => {
           style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}
           onClick={() => setAutoRotate(!autoRotate)}
         >
-          {autoRotate ? 'Pausar Rotación' : 'Rotar Automáticamente'}
+          {autoRotate ? 'Pausar RotaciÃ³n' : 'Rotar AutomÃ¡ticamente'}
         </button>
         <div>
           Arrastra el cubo para girarlo manualmente y ver todos los videos.

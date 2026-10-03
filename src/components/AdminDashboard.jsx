@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { supabase } from '../lib/supabaseClient';
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const { data: evData } = await supabase.from('events_mtfd').select('*').order('created_at', { ascending: false });
+      const { data: evData } = await supabase.from('wedding_events').select('*').order('created_at', { ascending: false });
       const { data: postData } = await supabase.from('wedding_media').select('*').order('created_at', { ascending: false });
       const { data: guestData } = await supabase.from('wedding_guests').select('*').order('created_at', { ascending: false });
       const { data: dedData } = await supabase.from('wedding_wishes').select('*').order('created_at', { ascending: false });
@@ -54,12 +54,12 @@ const AdminDashboard = () => {
   };
 
   const handleEventDelete = async (eventId, eventName) => {
-    const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar el evento "${eventName}" y TODOS sus recuerdos?`);
+    const confirmed = window.confirm(`Â¿EstÃ¡s seguro de que deseas eliminar el evento "${eventName}" y TODOS sus recuerdos?`);
     if (!confirmed) return;
 
     try {
       await supabase.from('wedding_media').delete().eq('event_id', eventId);
-      await supabase.from('events_mtfd').delete().eq('id', eventId);
+      await supabase.from('wedding_events').delete().eq('id', eventId);
       fetchData();
     } catch (error) {
       console.error('Error eliminando evento:', error);
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
   };
 
   const handlePostDelete = async (postId) => {
-    const confirmed = window.confirm('¿Seguro que deseas eliminar este recuerdo?');
+    const confirmed = window.confirm('Â¿Seguro que deseas eliminar este recuerdo?');
     if (!confirmed) return;
 
     try {
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
   };
 
   const handleDeleteGuest = async (guestId, guestName) => {
-    const confirmed = window.confirm(`¿Seguro que deseas eliminar a "${guestName}" de la lista de invitados?`);
+    const confirmed = window.confirm(`Â¿Seguro que deseas eliminar a "${guestName}" de la lista de invitados?`);
     if (!confirmed) return;
 
     try {
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
   };
 
   const handleDeleteDedication = async (dedicationId) => {
-    const confirmed = window.confirm('¿Seguro que deseas eliminar esta dedicatoria?');
+    const confirmed = window.confirm('Â¿Seguro que deseas eliminar esta dedicatoria?');
     if (!confirmed) return;
 
     try {
@@ -122,11 +122,11 @@ const AdminDashboard = () => {
       const { data: { publicUrl } } = supabase.storage.from('wedding_media_bucket').getPublicUrl(filePath);
 
       let eventId;
-      const { data: hiddenEvents } = await supabase.from('events_mtfd').select('id').eq('name', 'SYSTEM_HIDDEN_EVENT').limit(1);
+      const { data: hiddenEvents } = await supabase.from('wedding_events').select('id').eq('name', 'SYSTEM_HIDDEN_EVENT').limit(1);
       if (hiddenEvents && hiddenEvents.length > 0) {
         eventId = hiddenEvents[0].id;
       } else {
-        const { data: newEvent } = await supabase.from('events_mtfd').insert([{ name: 'SYSTEM_HIDDEN_EVENT', description: 'Hidden system event' }]).select('id');
+        const { data: newEvent } = await supabase.from('wedding_events').insert([{ name: 'SYSTEM_HIDDEN_EVENT', description: 'Hidden system event' }]).select('id');
         eventId = newEvent[0].id;
       }
 
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
         media_url: publicUrl
       }]);
 
-      alert('Imagen actualizada con éxito. Ve a la página principal para ver los cambios.');
+      alert('Imagen actualizada con Ã©xito. Ve a la pÃ¡gina principal para ver los cambios.');
       fetchData();
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -171,10 +171,10 @@ const AdminDashboard = () => {
 
       if (dbError) throw dbError;
 
-      alert('Música actualizada con éxito. Ve a la página principal para escucharla.');
+      alert('MÃºsica actualizada con Ã©xito. Ve a la pÃ¡gina principal para escucharla.');
     } catch (error) {
       console.error('Error uploading music:', error);
-      alert('Error al subir la música.');
+      alert('Error al subir la mÃºsica.');
     } finally {
       setUploadingMusic(false);
       if (musicInputRef.current) musicInputRef.current.value = '';
@@ -206,7 +206,7 @@ const AdminDashboard = () => {
           g.full_name,
           statusText,
           g.gender || '-',
-          g.age ? `${g.age} años` : '-',
+          g.age ? `${g.age} aÃ±os` : '-',
           g.whatsapp || '-'
         ];
         tableRows.push(guestData);
@@ -254,7 +254,7 @@ const AdminDashboard = () => {
             </button>
           </form>
           <a href="/" style={{ display: 'inline-block', marginTop: '1.5rem', color: 'var(--accent-hover)', textDecoration: 'none', fontSize: '0.875rem' }}>
-            &larr; Volver a la página principal
+            &larr; Volver a la pÃ¡gina principal
           </a>
         </div>
       </div>
@@ -277,13 +277,13 @@ const AdminDashboard = () => {
             </div>
           </div>
           <a href="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-            <ArrowLeft size={16} /> Ver Página
+            <ArrowLeft size={16} /> Ver PÃ¡gina
           </a>
         </div>
 
-        {/* Diseño Global */}
+        {/* DiseÃ±o Global */}
         <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: 'var(--shadow-sm)', marginBottom: '2rem' }}>
-          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>Personalización Global</h2>
+          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>PersonalizaciÃ³n Global</h2>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <button 
               onClick={() => avatarInputRef.current?.click()}
@@ -314,15 +314,15 @@ const AdminDashboard = () => {
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
             >
               {uploadingMusic ? <Loader2 size={16} className="animate-spin" /> : <Music size={16} />}
-              Cambiar Música
+              Cambiar MÃºsica
             </button>
             <input type="file" accept="audio/*" ref={musicInputRef} style={{ display: 'none' }} onChange={handleMusicUpload} />
           </div>
         </div>
 
-        {/* Gestión de Eventos y Recuerdos */}
+        {/* GestiÃ³n de Eventos y Recuerdos */}
         <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: 'var(--shadow-sm)' }}>
-          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>Gestión de Contenido</h2>
+          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>GestiÃ³n de Contenido</h2>
           
           {loading ? (
             <div style={{ textAlign: 'center', padding: '2rem' }}><Loader2 size={32} className="animate-spin" style={{ margin: '0 auto', color: 'var(--accent-color)' }} /></div>
@@ -360,13 +360,13 @@ const AdminDashboard = () => {
                         {/* Invitation Section */}
                         <div style={{ marginBottom: '2rem', padding: '1rem', backgroundColor: '#fdfbf7', borderRadius: '8px', border: '1px solid #f0e6d2' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.1rem' }}>Gestión de Invitados</h4>
+                            <h4 style={{ margin: 0, color: 'var(--text-main)', fontSize: '1.1rem' }}>GestiÃ³n de Invitados</h4>
                             <div style={{ display: 'flex', gap: '0.5rem' }}>
                               <button 
                                 onClick={() => {
                                   const url = `${window.location.origin}/invite/${event.id}`;
                                   navigator.clipboard.writeText(url);
-                                  alert('¡Link de invitación copiado! Envíalo por WhatsApp.');
+                                  alert('Â¡Link de invitaciÃ³n copiado! EnvÃ­alo por WhatsApp.');
                                 }}
                                 className="btn-secondary"
                                 style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.75rem', padding: '0.5rem 1rem' }}
@@ -398,7 +398,7 @@ const AdminDashboard = () => {
                                   <span style={{ fontSize: '0.875rem', color: 'var(--danger)', fontWeight: 'bold' }}>{declined.length} Cancelados</span>
                                 </div>
                                 {eventGuests.length === 0 ? (
-                                  <p style={{ color: '#888', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>Nadie ha respondido aún a la invitación.</p>
+                                  <p style={{ color: '#888', fontSize: '0.875rem', fontStyle: 'italic', margin: 0 }}>Nadie ha respondido aÃºn a la invitaciÃ³n.</p>
                                 ) : (
                                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '200px', overflowY: 'auto' }}>
                                     {eventGuests.map(g => (
@@ -409,8 +409,8 @@ const AdminDashboard = () => {
                                           {(g.gender || g.age) && (
                                             <span style={{ fontSize: '0.75rem', color: '#666' }}>
                                               {g.gender && <span>{g.gender}</span>}
-                                              {g.gender && g.age && ' • '}
-                                              {g.age && <span>{g.age} años</span>}
+                                              {g.gender && g.age && ' â€¢ '}
+                                              {g.age && <span>{g.age} aÃ±os</span>}
                                             </span>
                                           )}
                                         </div>
@@ -462,14 +462,14 @@ const AdminDashboard = () => {
                   </div>
                 );
               })}
-              {visibleEvents.length === 0 && <p style={{ color: '#666', textAlign: 'center' }}>No has creado eventos todavía.</p>}
+              {visibleEvents.length === 0 && <p style={{ color: '#666', textAlign: 'center' }}>No has creado eventos todavÃ­a.</p>}
             </div>
           )}
         </div>
 
-        {/* Gestión de Dedicatorias */}
+        {/* GestiÃ³n de Dedicatorias */}
         <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: 'var(--shadow-sm)', marginTop: '2rem' }}>
-          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>Gestión de Dedicatorias</h2>
+          <h2 style={{ marginTop: 0, borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.25rem' }}>GestiÃ³n de Dedicatorias</h2>
           
           {loading ? (
             <div style={{ textAlign: 'center', padding: '2rem' }}><Loader2 size={32} className="animate-spin" style={{ margin: '0 auto', color: 'var(--accent-color)' }} /></div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+﻿import React, { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { supabase } from '../lib/supabaseClient';
 import { Camera, Loader2, Eye, X } from 'lucide-react';
@@ -44,7 +44,7 @@ const ProfilePicture = ({ isAdmin }) => {
       // We will need a dummy event_id. Let's find or create a hidden event.
       let eventId;
       const { data: hiddenEvents } = await supabase
-        .from('events_mtfd')
+        .from('wedding_events')
         .select('id')
         .eq('name', 'SYSTEM_HIDDEN_EVENT')
         .limit(1);
@@ -53,7 +53,7 @@ const ProfilePicture = ({ isAdmin }) => {
         eventId = hiddenEvents[0].id;
       } else {
         const { data: newEvent, error: evError } = await supabase
-          .from('events_mtfd')
+          .from('wedding_events')
           .insert([{ name: 'SYSTEM_HIDDEN_EVENT', description: 'Hidden system event' }])
           .select('id');
         if (evError) throw evError;
@@ -92,7 +92,7 @@ const ProfilePicture = ({ isAdmin }) => {
       }}>
         <img 
           src={imageUrl} 
-          alt="Josu� y M�nica"
+          alt="Josuï¿½ y Mï¿½nica"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         
@@ -174,7 +174,7 @@ const ProfilePicture = ({ isAdmin }) => {
           </button>
           <img 
             src={imageUrl} 
-            alt="Josu� y M�nica Full" 
+            alt="Josuï¿½ y Mï¿½nica Full" 
             style={{ maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain', borderRadius: '8px', boxShadow: '0 0 40px rgba(0,0,0,0.5)' }} 
             onClick={(e) => e.stopPropagation()}
           />

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 
 const Countdown = () => {
-  // Configura aquí la fecha de la celebración
+  // Configura aquÃ­ la fecha de la celebraciÃ³n
   const targetDate = new Date('2026-11-20T16:30:00').getTime();
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -31,7 +31,7 @@ const Countdown = () => {
   }, [targetDate]);
 
   const timeBlocks = [
-    { label: 'DÍAS', value: timeLeft.days },
+    { label: 'DÃAS', value: timeLeft.days },
     { label: 'HRS', value: timeLeft.hours },
     { label: 'MIN', value: timeLeft.minutes },
     { label: 'SEG', value: timeLeft.seconds }

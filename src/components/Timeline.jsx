@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -15,7 +15,7 @@ const Timeline = ({ onEventClick }) => {
     try {
       // 1. Fetch Events
       const { data: eventsDataRaw, error: eventsError } = await supabase
-        .from('events_mtfd')
+        .from('wedding_events')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -55,7 +55,7 @@ const Timeline = ({ onEventClick }) => {
     // Subscribe to both tables
     const channelEvents = supabase
       .channel('public:events')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'events_mtfd' }, payload => {
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'wedding_events' }, payload => {
         setEvents(current => [payload.new, ...current]);
       })
       .subscribe();
@@ -106,7 +106,7 @@ const Timeline = ({ onEventClick }) => {
   if (visibleEvents.length === 0) {
     return (
       <div className="container glass-panel" style={{ padding: '3rem', textAlign: 'center', marginTop: '2rem' }}>
-        <h3 style={{ color: 'var(--text-muted)' }}>Aún no hay eventos.</h3>
+        <h3 style={{ color: 'var(--text-muted)' }}>AÃºn no hay eventos.</h3>
         <p>Crea el primer evento para empezar a guardar recuerdos.</p>
       </div>
     );
@@ -117,7 +117,7 @@ const Timeline = ({ onEventClick }) => {
       {visibleEvents.map((event, evIndex) => {
         const eventPosts = postsByEvent[event.id] || [];
 
-        // Filtrar posts ocultos y asegurar que solo mostramos imágenes en la portada y cuenta
+        // Filtrar posts ocultos y asegurar que solo mostramos imÃ¡genes en la portada y cuenta
         const visiblePosts = eventPosts.filter(p => 
           p.title !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
           p.title !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
@@ -161,7 +161,7 @@ const Timeline = ({ onEventClick }) => {
                 </div>
                 <div style={{ color: '#1a1a1a', fontWeight: '500', textShadow: '0 1px 2px rgba(255,255,255,0.8)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
                   {format(parseISO(event.event_date || event.created_at), "MMMM yyyy", { locale: es })} 
-                  {event.description && ` • ${event.description}`}
+                  {event.description && ` â€¢ ${event.description}`}
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@ const Timeline = ({ onEventClick }) => {
 
               {visiblePosts.length === 0 ? (
                 <div style={{ color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '2rem 0' }}>
-                  Sin fotos o videos aún. ¡Agrega el primero!
+                  Sin fotos o videos aÃºn. Â¡Agrega el primero!
                 </div>
               ) : (
                 <>
@@ -221,7 +221,7 @@ const Timeline = ({ onEventClick }) => {
                   <div style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid var(--glass-border)', paddingTop: '1rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontWeight: '600', color: 'var(--text-main)' }}>{visiblePosts.length} recuerdo{visiblePosts.length !== 1 && 's'}</span>
-                      <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Último: {visiblePosts[0].title}</span>
+                      <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Ãšltimo: {visiblePosts[0].title}</span>
                     </div>
                     <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
                       <button 
@@ -230,7 +230,7 @@ const Timeline = ({ onEventClick }) => {
                         onClick={(e) => { e.stopPropagation(); onEventClick(event); }}
                       >
                         <ImageIcon size={16} />
-                        Ver álbum completo
+                        Ver Ã¡lbum completo
                       </button>
                       <button 
                         className="btn-primary" 
