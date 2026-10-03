@@ -68,7 +68,7 @@ const EventAlbum = ({ event, onBack }) => {
 
   return (
     <div className="container animate-fade-in" style={{ paddingBottom: '4rem' }}>
-      {/* Header del ÃƒÂlbum */}
+      {/* Header del Álbum */}
       <div style={{ marginBottom: '3rem', textAlign: 'center', position: 'relative' }}>
         <button 
           onClick={onBack}
@@ -82,7 +82,7 @@ const EventAlbum = ({ event, onBack }) => {
         </h2>
         <div style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>
           {format(parseISO(event.created_at), "MMMM yyyy", { locale: es })}
-          {event.description && ` Ã¢â‚¬Â¢ ${event.description}`}
+          {event.description && ` • ${event.description}`}
         </div>
       </div>
 
@@ -94,9 +94,9 @@ const EventAlbum = ({ event, onBack }) => {
         </div>
       ) : posts.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>ÃƒÂlbum VacÃƒÂ­o</h3>
-          <p>AÃƒÂºn no hay fotos en este evento. Ã‚Â¡Agrega el primer recuerdo!</p>
-          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la GalerÃƒÂ­a 3D)</p>
+          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Álbum Vacío</h3>
+          <p>Aún no hay fotos en este evento. ¡Agrega el primer recuerdo!</p>
+          <p style={{ fontSize: '0.875rem' }}></p>
         </div>
       ) : (
         <div style={{ 
