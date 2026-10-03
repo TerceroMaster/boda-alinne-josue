@@ -16,16 +16,17 @@ const EventAlbum = ({ event, onBack }) => {
         const { data, error } = await supabase
           .from('wedding_media')
           .select('*')
-          .not('id', 'is', null)
+          .eq('event_id', event.id)
           .order('created_at', { ascending: false });
 
         if (error) throw error;
         
-        // Filtrar foto de perfil y asegurar que solo sean imágenes
         const visiblePosts = data.filter(p => 
+          p.title !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
+          p.title !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
           p.guest_name !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
           p.guest_name !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
-          p.media_type === 'image'
+          (p.media_type === 'image' || p.media_type === 'video')
         );
         setPosts(visiblePosts);
       } catch (error) {
@@ -38,13 +39,14 @@ const EventAlbum = ({ event, onBack }) => {
     fetchPosts();
 
     const channel = supabase
-      .channel(`public:posts:event=${event.id}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'posts', filter: `event_id=eq.${event.id}` }, payload => {
+      .channel(public:wedding_media:event= + event.id)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'wedding_media', filter: event_id=eq. + event.id }, payload => {
         if (payload.eventType === 'INSERT') {
           if (
             payload.new.title !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
             payload.new.title !== 'BACKGROUND_PICTURE_SYSTEM_RECORD' &&
-            payload.new.media_type === 'image'
+            payload.new.guest_name !== 'PROFILE_PICTURE_SYSTEM_RECORD' && 
+            (payload.new.media_type === 'image' || payload.new.media_type === 'video')
           ) {
             setPosts(current => [payload.new, ...current]);
           }
@@ -66,7 +68,7 @@ const EventAlbum = ({ event, onBack }) => {
 
   return (
     <div className="container animate-fade-in" style={{ paddingBottom: '4rem' }}>
-      {/* Header del Álbum */}
+      {/* Header del Ãlbum */}
       <div style={{ marginBottom: '3rem', textAlign: 'center', position: 'relative' }}>
         <button 
           onClick={onBack}
@@ -80,7 +82,7 @@ const EventAlbum = ({ event, onBack }) => {
         </h2>
         <div style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>
           {format(parseISO(event.created_at), "MMMM yyyy", { locale: es })}
-          {event.description && ` • ${event.description}`}
+          {event.description && ` â€¢ ${event.description}`}
         </div>
       </div>
 
@@ -92,9 +94,9 @@ const EventAlbum = ({ event, onBack }) => {
         </div>
       ) : posts.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Álbum Vacío</h3>
-          <p>Aún no hay fotos en este evento. ¡Agrega el primer recuerdo!</p>
-          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la Galería 3D)</p>
+          <h3 style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Ãlbum VacÃ­o</h3>
+          <p>AÃºn no hay fotos en este evento. Â¡Agrega el primer recuerdo!</p>
+          <p style={{ fontSize: '0.875rem' }}>(Los videos se ven en la GalerÃ­a 3D)</p>
         </div>
       ) : (
         <div style={{ 
