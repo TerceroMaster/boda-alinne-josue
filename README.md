@@ -1,4 +1,4 @@
-﻿# Boda de Josué & Mónica
+# Boda de Josué & Mónica
 
 Aplicación web interactiva para capturar, organizar y visualizar recuerdos (fotos y videos) en una línea de tiempo y un muro de dedicatorias para la boda de Josué & Mónica.
 

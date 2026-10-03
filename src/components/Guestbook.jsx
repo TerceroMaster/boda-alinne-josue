@@ -84,7 +84,7 @@ const Guestbook = () => {
           <MessageSquareHeart size={28} color="var(--accent-color)" />
           Muro de Dedicatorias
         </h2>
-        <p style={{ color: 'var(--text-muted)' }}>Deja unas hermosas palabras para Josué y Mónica</p>
+        <p style={{ color: 'var(--text-muted)' }}>Deja unas hermosas palabras para Josuï¿½ y Mï¿½nica</p>
       </div>
 
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
